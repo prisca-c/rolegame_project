@@ -6,8 +6,8 @@ class Database
     /* define the database connection */
     private $servername = "localhost";
     private $username = "root";
-    private $password = "";
-    private $dbname = "mmo_project";
+    private $password = "root";
+    private $dbname = "rolegame_project";
     private $sql = "";
 
     /* connect to mysql database */
