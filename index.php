@@ -1,26 +1,41 @@
 <?php
-    require 'Database/Objects.php';
-    $objects = (new Objects())->display();
-    $msg = '';
-    
+require "./Database/Objects.php";
+require "./Database/Characters.php";
+require "./Database/Inventory.php";
 
-    if(empty($_POST['name']) || empty($_POST['type']) || empty($_POST['description']) || empty($_POST['property']))
-    {
-        $msg = "Please fill out all fields.";
-    }
-    else
-    {
-        $msg = "";
-        $name = $_POST['name'];
-        $type = $_POST['type'];
-        $description = $_POST['description'];
-        $property = $_POST['property'];
-        (new Objects())->create($name, $type, $description, $property);
-    }
+$object = new Objects();
+$objects = $object->displayAll();
+$character = new Characters();
+$inventory = new Inventory();
+$msg = '';
+//$object->modify(21, 'chicken', 'food', 'meal that gives a low amount of hp', '["hp","+","5"]');
+//$character->modify(1, "Test4", 1, 20, 10, 10);
+//$inventory->create(1, 22, 10);
+//$inventory->modifyQuantity(1, 21, 30);
+//$inventory->deleteInventoryCharacter(1);
 
-    if(array_key_exists('delete', $_POST)) {
-        (new Objects())->delete($_POST['delete']);
-    }
+echo json_encode($character->displayAll()) . "<br>";
+echo json_encode($inventory->displayAll()) . "<br>";
+echo json_encode($inventory->displaySpecificInventory(1)) . "<br>";
+echo json_encode($inventory->displaySpecificInventoryObject(1, 22)) . "<br>";
+
+if(empty($_POST['name']) || empty($_POST['type']) || empty($_POST['description']) || empty($_POST['property']))
+{
+    $msg = "Please fill out all fields.";
+}
+else
+{
+    $msg = "";
+    $name = $_POST['name'];
+    $type = $_POST['type'];
+    $description = $_POST['description'];
+    $property = $_POST['property'];
+    (new Objects())->create($name, $type, $description, $property);
+}
+
+if(array_key_exists('delete', $_POST)) {
+    (new Objects())->delete($_POST['delete']);
+}
 ?>
 
 
