@@ -2,22 +2,26 @@
 require "./Database/Objects.php";
 require "./Database/Characters.php";
 require "./Database/Inventory.php";
+require "./Database/ClassCharacter.php";
 
 $object = new Objects();
-$objects = $object->displayAll();
+$objects = $object->displayAllObjects();
 $character = new Characters();
 $inventory = new Inventory();
-$msg = '';
-//$object->modify(21, 'chicken', 'food', 'meal that gives a low amount of hp', '["hp","+","5"]');
-//$character->modify(1, "Test4", 1, 20, 10, 10);
-//$inventory->create(1, 22, 10);
-//$inventory->modifyQuantity(1, 21, 30);
+$characterClass = new ClassCharacter();
+//$object->modifyObject(21, 'chicken', 'food', 'meal that gives a low amount of hp', '["hp","+","5"]');
+//$character->modifyCharacter(1, "Test4", 1, 20, 10, 10);
+//$inventory->createInventoryItem(1, 4, 5);
+//$inventory->modifyInventoryObjectQuantity(1, 21, 30);
 //$inventory->deleteInventoryCharacter(1);
 
-echo json_encode($character->displayAll()) . "<br>";
-echo json_encode($inventory->displayAll()) . "<br>";
-echo json_encode($inventory->displaySpecificInventory(1)) . "<br>";
-echo json_encode($inventory->displaySpecificInventoryObject(1, 22)) . "<br>";
+echo "All Character: " . json_encode($character->displayAllCharacters()) . "<br><br>";
+echo "Specific Character: " . json_encode($character->displaySpecificCharacter(1)) . "<br><br>";
+echo "All Inventory: " . json_encode($inventory->displayAllInventories()) . "<br><br>";
+echo "Specific Inventory: " . json_encode($inventory->displaySpecificInventory(1)) . "<br><br>";
+echo "Specific Inventory Object: " . json_encode($inventory->displaySpecificInventoryObject(1, 1)) . "<br><br>";
+echo "All Class: " . json_encode($characterClass->displayAllClass()) . "<br><br>";
+
 
 if(empty($_POST['name']) || empty($_POST['type']) || empty($_POST['description']) || empty($_POST['property']))
 {
@@ -30,11 +34,11 @@ else
     $type = $_POST['type'];
     $description = $_POST['description'];
     $property = $_POST['property'];
-    (new Objects())->create($name, $type, $description, $property);
+    (new Objects())->createObject($name, $type, $description, $property);
 }
 
 if(array_key_exists('delete', $_POST)) {
-    (new Objects())->delete($_POST['delete']);
+    (new Objects())->deleteObject($_POST['delete']);
 }
 ?>
 

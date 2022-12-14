@@ -2,13 +2,14 @@
 require_once "Database.php";
 class Inventory
 {
-    private $conn;
+    private PDO $conn;
     public function __construct()
     {
         $db = new Database();
         $this->conn = $db->connect();
     }
-    public function create($id_character, $id_object, $quantity):void
+
+    public function createInventoryItem($id_character, $id_object, $quantity):void
     {
         $sql = "INSERT INTO inventory (id_character, id_object, quantity)
                 VALUES (?, ?, ?)";
@@ -16,7 +17,8 @@ class Inventory
         $stmt->execute([$id_character, $id_object, $quantity]);
         $stmt = null;
     }
-    public function displayAll(): array|false
+
+    public function displayAllInventories(): array|false
     {
         $sql = "SELECT inventory.*, objects.name
                 FROM inventory
@@ -25,6 +27,7 @@ class Inventory
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
     public function displaySpecificInventory($id_character): array|false
     {
         $sql = "SELECT inventory.*, objects.name
@@ -45,7 +48,7 @@ class Inventory
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function modifyQuantity($id_character, $id_object, $quantity): void
+    public function modifyInventoryObjectQuantity($id_character, $id_object, $quantity): void
     {
         $sql = "UPDATE inventory
                 SET quantity=?

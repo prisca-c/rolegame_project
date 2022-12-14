@@ -2,7 +2,7 @@
 require_once "Database.php";
 class Characters
 {
-    private $conn;
+    private PDO $conn;
 
     public function __construct()
     {
@@ -10,7 +10,7 @@ class Characters
         $this->conn = $db->connect();
     }
 
-    public function create($name, $class, $hp, $ability, $strength):void
+    public function createCharacter($name, $class, $hp, $ability, $strength):void
     {
         $sql = "INSERT INTO characters (name, class, hp, ability, strength)
                 VALUES (?,?,?,?,?)";
@@ -20,7 +20,7 @@ class Characters
         $stmt->execute([$name, $class, $hp, $ability, $strength]);
     }
 
-    public function displayAll(): array|false
+    public function displayAllCharacters(): array|false
     {
         $sql = "SELECT * FROM characters";
         $stmt = $this->conn->prepare($sql);
@@ -28,7 +28,15 @@ class Characters
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function modify($id, $name, $class, $hp, $ability, $strength):void
+    public function displaySpecificCharacter($id): array|false
+    {
+        $sql = "SELECT * FROM characters WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function modifyCharacter($id, $name, $class, $hp, $ability, $strength):void
     {
         $sql = "UPDATE characters
                 SET name=?, class=?, hp=?, ability=?, strength=?
@@ -39,7 +47,7 @@ class Characters
         echo $sql;
     }
 
-    public function delete($id):void
+    public function deleteCharacter($id):void
     {
         $sql = "DELETE FROM characters WHERE id = ?";
         $stmt = $this->conn->prepare($sql);

@@ -3,7 +3,7 @@ require_once 'Database.php';
 
 class Objects
 {
-    private $conn;
+    private PDO $conn;
 
     public function __construct()
     {
@@ -11,7 +11,7 @@ class Objects
         $this->conn = $db->connect();
     }
 
-    public function create($name, $type, $description, $property):void
+    public function createObject($name, $type, $description, $property):void
     {
         $sql = "INSERT INTO objects (name, type, description, property)
                 VALUES (?, ?, ?, ?)";
@@ -21,7 +21,7 @@ class Objects
         $stmt = null;
     }
 
-    public function displayAll(): array|false
+    public function displayAllObjects(): array|false
     {
         $sql = "SELECT * FROM objects";
         $stmt = $this->conn->prepare($sql);
@@ -29,7 +29,7 @@ class Objects
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function modify($id, $name, $type, $description, $property):void
+    public function modifyObject($id, $name, $type, $description, $property):void
     {
         $sql = "UPDATE objects
                 SET name=?, type=?, description=?, property=?
@@ -40,7 +40,7 @@ class Objects
         $stmt = null;
     }
 
-    public function delete($id):void
+    public function deleteObject($id):void
     {
         $sql = "DELETE FROM objects WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
