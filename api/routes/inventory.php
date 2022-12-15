@@ -17,10 +17,14 @@ $app->map(['GET', 'POST'], '/inventory/', function (Request $request, Response $
     return $response;
 });
 
-$app->map(['GET'], '/inventory/{id_character}', function (Request $request, Response $response, $args) {
+$app->map(['GET', 'DELETE'], '/inventory/{id_character}', function (Request $request, Response $response, $args) {
     $requestMethod = $request->getMethod();
     $inventory = new Inventory();
+    if ($requestMethod == 'DELETE') {
+        $inventory->deleteInventoryCharacter($args['id_character']);
+    }
     $response->getBody()->write(json_encode($inventory->displaySpecificInventory($args['id_character'])));
+    return $response;
 });
 
 $app->map(['GET', 'PUT', 'DELETE'], '/inventory/{id_character}/{id_object}', function (Request $request, Response $response, $args) {
