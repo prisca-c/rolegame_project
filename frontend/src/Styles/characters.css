@@ -1,0 +1,25 @@
+.table_character {
+    width: 90vw;
+    border-collapse: collapse;
+    border: 1px solid #000;
+    margin: 0 auto 1em auto;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.table_character td {
+    border: 1px solid #000;
+    padding: 0.5em;
+}
+
+.form_add_character {
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+    margin: 0 auto;
+}
+
+.form_add_character input {
+    margin: 0.5em 0;
+    padding: 0.5em;
+}
