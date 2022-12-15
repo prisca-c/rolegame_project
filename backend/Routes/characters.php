@@ -11,7 +11,7 @@ $app->map(['GET', 'POST'], '/characters/', function (Request $request, Response 
     $character = new Characters();
     if ($requestMethod == 'POST') {
         $data = $request->getParsedBody();
-        $character->createCharacter($data['name'], $data['class'], $data['level'], $data['hp'], $data['ability'], $data['strength'], $data['inventory']);
+        $character->createCharacter($data['name'], $data['class'], $data['hp'], $data['ability'], $data['strength']);
     }
     $response->getBody()->write(json_encode($character->displayAllCharacters()));
     return $response;
@@ -22,7 +22,7 @@ $app->map(['GET', 'PUT', 'DELETE'], '/characters/{id}', function (Request $reque
     $character = new Characters();
     if ($requestMethod == 'PUT') {
         $data = $request->getParsedBody();
-        $character->modifyCharacter($args['id'], $data['name'], $data['class'], $data['level'], $data['hp'], $data['ability'], $data['strength'], $data['inventory']);
+        $character->modifyCharacter($args['id'], $data['name'], $data['class'], $data['hp'], $data['ability'], $data['strength']);
     } elseif ($requestMethod == 'DELETE') {
         $character->deleteCharacter($args['id']);
     }
