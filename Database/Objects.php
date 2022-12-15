@@ -29,6 +29,14 @@ class Objects
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function displaySpecificObject($id): array|false
+    {
+        $sql = "SELECT * FROM objects WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function modifyObject($id, $name, $type, $description, $property):void
     {
         $sql = "UPDATE objects

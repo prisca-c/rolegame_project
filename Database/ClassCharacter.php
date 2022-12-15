@@ -21,7 +21,7 @@ class ClassCharacter
         $stmt = null;
     }
 
-    public function displayAllClass(): array|false
+    public function displayAllClasses(): array|false
     {
         $sql = "SELECT * FROM class_character";
         $stmt = $this->conn->prepare($sql);
