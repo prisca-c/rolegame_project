@@ -22,7 +22,9 @@ class Characters
 
     public function displayAllCharacters(): array|false
     {
-        $sql = "SELECT * FROM characters";
+        $sql = "SELECT * , class_character.name AS class_name
+                FROM characters
+                INNER JOIN class_character ON characters.class = class_character.id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

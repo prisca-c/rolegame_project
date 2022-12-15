@@ -20,7 +20,7 @@ class Inventory
 
     public function displayAllInventories(): array|false
     {
-        $sql = "SELECT inventory.*, objects.name
+        $sql = "SELECT inventory.*, objects.name AS object_name
                 FROM inventory
                 INNER JOIN objects ON inventory.id_object = objects.id";
         $stmt = $this->conn->prepare($sql);
@@ -30,7 +30,7 @@ class Inventory
 
     public function displaySpecificInventory($id_character): array|false
     {
-        $sql = "SELECT inventory.*, objects.name
+        $sql = "SELECT inventory.*, objects.name AS object_name
                 FROM inventory
                 INNER JOIN objects ON inventory.id_object = objects.id
                 WHERE id_character = ?";
@@ -41,7 +41,7 @@ class Inventory
 
     public function displaySpecificInventoryObject($id_character, $id_object): array|false
     {
-        $sql = "SELECT inventory.*, objects.name
+        $sql = "SELECT inventory.*, objects.name AS object_name
                 FROM inventory
                 INNER JOIN objects ON inventory.id_object = objects.id
                 WHERE id_character = ? AND id_object = ?";

@@ -10,14 +10,17 @@ require_once 'Models/ClassCharacter.php';
 
 require __DIR__ . '/vendor/autoload.php';
 
+header('Access-Control-Allow-Origin: http://localhost:3000');
+header('Content-type: application/json');
+
 $app = AppFactory::create();
 $app->addErrorMiddleware(true, true, true);
 
-// Get all routes from directory routes
-require_once __DIR__ . '/routes/objects.php';
-require_once __DIR__ . '/routes/characters.php';
-require_once __DIR__ . '/routes/inventory.php';
-require_once __DIR__ . '/routes/classCharacter.php';
+// Get all Routes from directory Routes
+require_once __DIR__ . '/Routes/objects.php';
+require_once __DIR__ . '/Routes/characters.php';
+require_once __DIR__ . '/Routes/inventory.php';
+require_once __DIR__ . '/Routes/classCharacter.php';
 
 
 $app->run();
