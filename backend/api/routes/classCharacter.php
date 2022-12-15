@@ -4,7 +4,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 $app->addErrorMiddleware(true, true, true);
-$app->setBasePath('/rolegame_project/api');
+$app->setBasePath('/rolegame_project/backend/api');
 
 $app->map(['GET', 'POST'], '/class/', function (Request $request, Response $response, $args) {
     $requestMethod = $request->getMethod();
