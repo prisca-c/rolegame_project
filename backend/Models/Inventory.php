@@ -1,5 +1,5 @@
 <?php
-require_once "Database.php";
+require_once "./Database/Database.php";
 class Inventory
 {
     private PDO $conn;
