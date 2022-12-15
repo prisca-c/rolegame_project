@@ -6,18 +6,6 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->addErrorMiddleware(true, true, true);
 $app->setBasePath('/rolegame_project/api');
 
-/*$app->get('/objects/', function (Request $request, Response $response, $args) {
-    $object = new Objects();
-    $response->getBody()->write(json_encode($object->displayAllObjects()));
-    return $response;
-});
-
-$app->get('/objects/{id}', function (Request $request, Response $response, $args) {
-    $object = new Objects();
-    $response->getBody()->write(json_encode($object->displaySpecificObject($args['id'])));
-    return $response;
-});*/
-
 $app-> map(['GET', 'POST'], '/objects/', function (Request $request, Response $response, $args) {
     $requestMethod = $request->getMethod();
     $object = new Objects();

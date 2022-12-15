@@ -41,7 +41,9 @@ class Inventory
 
     public function displaySpecificInventoryObject($id_character, $id_object): array|false
     {
-        $sql = "SELECT * FROM inventory
+        $sql = "SELECT inventory.*, objects.name
+                FROM inventory
+                INNER JOIN objects ON inventory.id_object = objects.id
                 WHERE id_character = ? AND id_object = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$id_character, $id_object]);
