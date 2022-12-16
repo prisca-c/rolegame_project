@@ -1,10 +1,12 @@
 import './App.css';
-import Characters from "./Components/Characters";
+import AdminCharacters from "./Components/Admin/AdminCharacters";
+import HomePage from "./Components/Game/HomePage";
 
 function App() {
   return (
     <div className="App">
-      <Characters />
+      {/*<AdminCharacters />*/}
+      <HomePage />
     </div>
   );
 }

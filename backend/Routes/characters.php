@@ -11,6 +11,7 @@ $app->map(['GET', 'POST'], '/characters/', function (Request $request, Response 
     $character = new Characters();
     if ($requestMethod == 'POST') {
         $data = $request->getParsedBody();
+        trigger_error("Data: " . json_encode($data),E_USER_WARNING );
         $character->createCharacter($data['name'], $data['class'], $data['hp'], $data['ability'], $data['strength']);
     }
     $response->getBody()->write(json_encode($character->displayAllCharacters()));

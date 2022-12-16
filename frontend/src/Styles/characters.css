@@ -23,3 +23,52 @@
     margin: 0.5em 0;
     padding: 0.5em;
 }
+
+.form_modify_character {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 10px 20px;
+    margin: 0 auto;
+    gap: 15px;
+    background: aquamarine;
+}
+
+.form_modify_character input {
+    margin: 0.5em 0;
+    padding: 0.5em;
+    width: 100px;
+}
+
+.form_modify_character button {
+    height: fit-content;
+    margin: auto;
+    display: block;
+}
+
+.form_modify_character .btn-group {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-weight: bold;
+}
+
+.form_modify_character .btn-group button {
+    width: 80px;
+    border: 0;
+    cursor: pointer;
+    padding: 0.5em;
+}
+
+.btn--red {
+    background-color: red;
+    color: white;
+}
+
+.btn--green {
+    background-color: green;
+    color: white;
+}

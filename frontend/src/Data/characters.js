@@ -1,29 +1,28 @@
 import axios from "axios";
 const getAllCharacters = async () => {
-  const response = await axios.get(`http://localhost/rolegame_project/backend/api/characters/`);
+  const response = await axios.get(`${process.env.REACT_APP_API_URL}/characters/`);
   return response.data;
 }
 
 const getCharacter = async (id) => {
-  const response = await axios.get(`http://localhost/rolegame_project/backend/api/characters/${id}`);
+  const response = await axios.get(`${process.env.REACT_APP_API_URL}/characters/${id}`);
   console.log(response.data);
   return response.data;
 }
 
 const createCharacter = async (character) => {
-  const response = await axios.post("http://localhost/rolegame_project/backend/api/characters/", character);
+  const response = await axios.post(`${process.env.REACT_APP_API_URL}/characters/`, character);
   console.log(response.data);
   return response.data;
 }
 
 const modifyCharacter = async (id, character) => {
-  const response = await axios.put(`http://localhost/rolegame_project/backend/api/characters/${id}`, character);
+  const response = await axios.put(`${process.env.REACT_APP_API_URL}/characters/${id}`, character);
   console.log(response.data);
 }
 
 const deleteCharacter = async (id) => {
-  const response = await axios.delete(`http://localhost/rolegame_project/backend/api/characters/${id}`);
-  console.log(response.data);
+  const response = await axios.delete(`${process.env.REACT_APP_API_URL}/characters/${id}`);
   return response.data;
 }
 

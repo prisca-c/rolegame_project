@@ -24,7 +24,8 @@ class Characters
     {
         $sql = "SELECT characters.* , class_character.name AS class_name
                 FROM characters
-                INNER JOIN class_character ON characters.class = class_character.id";
+                INNER JOIN class_character ON characters.class = class_character.id
+                ORDER BY characters.id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

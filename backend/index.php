@@ -10,11 +10,13 @@ require_once 'Models/ClassCharacter.php';
 
 require __DIR__ . '/vendor/autoload.php';
 
-header('Access-Control-Allow-Origin: http://localhost:3000');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: content-type, authorization, origin, x-requested-with');
 header('Content-type: application/json');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 
 $app = AppFactory::create();
+$app->addBodyParsingMiddleware();
 $app->addErrorMiddleware(true, true, true);
 
 // Get all Routes from directory Routes
