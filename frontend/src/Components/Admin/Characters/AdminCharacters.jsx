@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {getAllCharacters, deleteCharacter, createCharacter, modifyCharacter} from "../../Data/characters";
-import '../../Styles/characters.css';
+import {getAllCharacters, deleteCharacter, createCharacter, modifyCharacter} from "../../../Data/characters";
+import '../../../Styles/AdminCharacters.css';
 
 const AdminCharacters = () => {
 
@@ -23,9 +23,18 @@ const AdminCharacters = () => {
     })
   }
 
-  const handleModify = (e) => {
-    setShowModifyForm(true)
-    setEditedCharacter(characters.find(character => character.id === e.currentTarget.value))
+  const handleShowModify = (e) => {
+    const character = characters.find((character) => {
+      return character.id === parseInt(e.currentTarget.value);
+    });
+    setEditedCharacter(character);
+    setShowCreateForm(false);
+    setShowModifyForm(true);
+  }
+
+  const handleShowCreate = () => {
+    setShowModifyForm(false);
+    setShowCreateForm(true);
   }
 
   const handleAddForm = (e) => {
@@ -56,7 +65,7 @@ const AdminCharacters = () => {
           <td>{character.ability}</td>
           <td>{character.strength}</td>
           <td>
-            <button value={character.id} onClick={handleModify}>Modify</button>
+            <button value={character.id} onClick={handleShowModify}>Modify</button>
             <button value={character.id} onClick={handleDelete}>Delete</button>
           </td>
         </tr>
@@ -64,11 +73,11 @@ const AdminCharacters = () => {
     })
   }
 
-  const handleEditCharacter = (e) => {
-    setEditedCharacter({...editedCharacter, [e.currentTarget.name]: e.currentTarget.value})
-  }
-
   const modifyCharacterForm = () => {
+    const handleEditCharacter = (e) => {
+      setEditedCharacter({...editedCharacter, [e.currentTarget.name]: e.currentTarget.value})
+    }
+
     const handleModifyForm = (e) => {
       e.preventDefault();
 
@@ -144,7 +153,7 @@ const AdminCharacters = () => {
 
   return (
     <div>
-      <h1>Characters</h1>
+      <h2>Characters</h2>
       <table className={"table_character"}>
         <thead>
           <tr>
@@ -160,7 +169,7 @@ const AdminCharacters = () => {
           {displayCharacters()}
         </tbody>
       </table>
-      <button onClick={() => setShowCreateForm(true)}>Add Character</button>
+      <button onClick={handleShowCreate}>Add Character</button>
       {showModifyForm ? modifyCharacterForm() : null}
       {showCreateForm ? addCharacterForm() : null}
 

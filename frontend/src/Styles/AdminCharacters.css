@@ -15,8 +15,8 @@
 .form_add_character {
     display: flex;
     flex-direction: column;
-    width: 70vw;
-    margin: 0 auto;
+    width: 100%;
+    margin: 15px auto 0 auto;
 }
 
 .form_add_character input {
@@ -31,7 +31,7 @@
     justify-content: center;
     width: fit-content;
     padding: 10px 20px;
-    margin: 0 auto;
+    margin: 15px auto 0 auto;
     gap: 15px;
     background: aquamarine;
 }
