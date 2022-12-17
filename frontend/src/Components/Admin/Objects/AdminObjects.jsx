@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from "react";
-import {getAllObjects, createObject, updateObject, deleteObject} from "../../../Data/objects";
-import '../../../Styles/AdminObjects.css';
+import React, { useEffect, useState } from "react";
+import { getAllObjects, createObject, updateObject, deleteObject } from "../../../Data/objects";
 
 const AdminObjects = () => {
 
-  const [objects, setObjects] = useState([]);
-  const [ editedObject, setEditedObject ] = useState({});
-  const [ showModifyForm, setShowModifyForm ] = useState(false);
-  const [ showCreateForm, setShowCreateForm ] = useState(false);
-  const [ handleUpdate, setHandleUpdate ] = useState(1);
+  const [objects, setObjects] = useState([]); // Hold all objects
+  const [ editedObject, setEditedObject ] = useState({}); // Hold the object to be edited
+  const [ showModifyForm, setShowModifyForm ] = useState(false); // Show the modify form
+  const [ showCreateForm, setShowCreateForm ] = useState(false); // Show the create form
+  const [ handleUpdate, setHandleUpdate ] = useState(1); // Handle the re-render of the list of objects
 
+  // Handle the initial fetch of all objects
   useEffect(() => {
     getAllObjects().then((objects) => {
       setObjects(objects);
@@ -17,18 +17,23 @@ const AdminObjects = () => {
     })
   },[handleUpdate]);
 
+  // Handle Object deletion
   const handleDelete = (e) => {
     deleteObject(e.currentTarget.value).then(() => {
       setHandleUpdate(handleUpdate + 1);
     })
   }
 
+  // Handle Create form display state
   const handleShowCreate = () => {
-    setShowModifyForm(false);
-    setShowCreateForm(true);
+    setShowModifyForm(false); // Hide the modify form
+    setShowCreateForm(true); // Show the create form
   }
 
+  // Display the Create form
   const addForm = () => {
+
+    // Handle create form submission
     const handleAddForm = (e) => {
       e.preventDefault();
 
@@ -40,34 +45,51 @@ const AdminObjects = () => {
       }
 
       console.log(object);
+      // Send the object to the backend
       createObject(object).then(() => {
         setHandleUpdate(handleUpdate + 1);
       })
     }
 
+    // Display the create form
     return (
-      <form className="add-form" onSubmit={handleAddForm}>
-        <label htmlFor="name">Name</label>
-        <input type="text" name="name" id="name" />
-        <label htmlFor="type">Type</label>
-        <input type="text" name="type" id="type" />
-        <label htmlFor="description">Description</label>
-        <input type="text" name="description" id="description" />
-        <label htmlFor="property">Property</label>
-        <input type="text" name="property" id="property" />
-        <input type="submit" value="Add Object" />
-        <input type="button" value="Cancel" onClick={() => setShowCreateForm(false)} />
+      <form className="form" onSubmit={handleAddForm}>
+        <h2>Add Object</h2>
+        <div className={"form-group"}>
+          <label htmlFor="name">Name</label>
+          <input type="text" name="name" id="name" />
+        </div>
+        <div className={"form-group"}>
+          <label htmlFor="type">Type</label>
+          <input type="text" name="type" id="type" />
+        </div>
+        <div className={"form-group"}>
+          <label htmlFor="description">Description</label>
+          <input type="text" name="description" id="description" />
+        </div>
+        <div className={"form-group"}>
+          <label htmlFor="property">Property</label>
+          <input type="text" name="property" id="property" />
+        </div>
+        <div className={"btn-group"}>
+          <button type="submit">Add</button>
+          <button type="button" onClick={() => setShowCreateForm(false)}>Cancel</button>
+        </div>
       </form>
     )
   }
 
+  // Display the Modify form
   const modifyForm = () => {
+
+    // Handle changes of the modified object state
     const handleEditObject = (e) => {
       setEditedObject({
         ...editedObject, [e.currentTarget.name]: e.currentTarget.value
       })
     }
 
+    // Handle the submission of the modified object
     const handleModifyForm = (e) => {
       e.preventDefault();
 
@@ -80,24 +102,46 @@ const AdminObjects = () => {
       }
 
       console.log(object);
+      // Send the object to the backend
       updateObject(object).then(() => {
         setHandleUpdate(handleUpdate + 1);
       })
     }
 
+    // Display the modify form
     return (
-      <form onSubmit={handleModifyForm}>
+      <form className={"form"} onSubmit={handleModifyForm}>
+        <h2>Modify Object</h2>
         <input type="hidden" name="id" value={editedObject.id} />
-        <input type="text" name="name" placeholder="Name" value={editedObject.name} onChange={handleEditObject}/>
-        <input type="text" name="type" placeholder="Type" value={editedObject.type} onChange={handleEditObject}/>
-        <input type="text" name="description" placeholder="Description" value={editedObject.description} onChange={handleEditObject}/>
-        <input type="text" name="property" placeholder="Property" value={editedObject.property} onChange={handleEditObject}/>
-        <input type="submit" value="Update" />
+        <p>ID: {editedObject.id}</p>
+        <div className={"form-group"}>
+          <label htmlFor="name">Name</label>
+          <input type="text" name="name" placeholder="Name" value={editedObject.name} onChange={handleEditObject}/>
+        </div>
+        <div className={"form-group"}>
+          <label htmlFor="type">Type</label>
+          <input type="text" name="type" placeholder="Type" value={editedObject.type} onChange={handleEditObject}/>
+        </div>
+        <div className={"form-group"}>
+          <label htmlFor="description">Description</label>
+          <input type="text" name="description" placeholder="Description" value={editedObject.description} onChange={handleEditObject}/>
+        </div>
+        <div className={"form-group"}>
+          <label htmlFor="property">Property</label>
+          <input type="text" name="property" placeholder="Property" value={editedObject.property} onChange={handleEditObject}/>
+        </div>
+        <div className={"btn-group"}>
+          <button type="submit">Modify</button>
+          <button type="button" onClick={() => setShowModifyForm(false)}>Cancel</button>
+        </div>
       </form>
     )
   }
 
+  // Display the list of objects
   const displayObjects = () => {
+
+    // Handle the display of the modify form & pick the object to be modified
     const handleShowModify = (e) => {
       const object = objects.find((object) => {
         return object.id === parseInt(e.currentTarget.value);
@@ -107,6 +151,7 @@ const AdminObjects = () => {
       setShowModifyForm(true);
     }
 
+    // Display the list of objects
     return objects.map((object) => {
       return (
         <tr key={object.id}>
@@ -123,11 +168,12 @@ const AdminObjects = () => {
     })
   }
 
+  // Display Object Panel
   return (
     <div>
       <h2>Objects</h2>
 
-      <table className={"table_objects"}>
+      <table className={"table"}>
         <thead>
           <tr>
             <th>Name</th>
