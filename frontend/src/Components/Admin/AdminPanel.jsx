@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import AdminCharacters from "./Characters/AdminCharacters";
 import AdminObjects from "./Objects/AdminObjects";
-import AdminClass from "./Class/AdminClass";
+import AdminClasses from "./Classes/AdminClasses";
+import AdminInventories from "./Inventories/AdminInventories";
 import "../../styles/AdminPanel.scss";
 
 const AdminPanel = () => {
@@ -15,7 +16,9 @@ const AdminPanel = () => {
       case "Objects":
         return <AdminObjects />;
       case "Class":
-        return <AdminClass />;
+        return <AdminClasses />;
+      case "Inventories":
+        return <AdminInventories />;
       default:
         return <AdminCharacters />;
     }
@@ -23,7 +26,7 @@ const AdminPanel = () => {
 
   //Handle tab list buttons
   const tabList = () => {
-    const tabs = ["Characters", "Objects", "Class"];
+    const tabs = ["Characters", "Objects", "Class", "Inventories"];
 
     const handleTabChange = (e) => {
       setShowTab(e.currentTarget.value);
