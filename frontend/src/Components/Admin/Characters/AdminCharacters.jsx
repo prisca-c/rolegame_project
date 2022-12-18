@@ -30,7 +30,7 @@ const AdminCharacters = () => {
   }
 
   const displayCharacters = () => {
-    // Handle Create form display state
+    // Handle Modify form display state
     const handleShowModify = (e) => {
       // Get the character to be edited
       const character = characters.find((character) => {
@@ -69,7 +69,7 @@ const AdminCharacters = () => {
     }
 
     // Handle the submission of the modified character
-    const handleModifyForm = (e) => {
+    const handleModifySubmit = (e) => {
       e.preventDefault();
 
       const id = editedCharacter.id;
@@ -91,7 +91,7 @@ const AdminCharacters = () => {
 
     // Display the Modify form
     return (
-      <form onSubmit={handleModifyForm} className={"form"}>
+      <form onSubmit={handleModifySubmit} className={"form"}>
         <input type="hidden" name="id" value={editedCharacter.id}/>
         <h2>Modify Character</h2>
         <p><strong>ID Character: {editedCharacter.id}</strong></p>

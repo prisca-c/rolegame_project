@@ -157,6 +157,7 @@ const AdminObjects = () => {
     return objects.map((object) => {
       return (
         <tr key={object.id}>
+          <td>{object.id}</td>
           <td>{object.name}</td>
           <td>{object.type}</td>
           <td>{object.description}</td>
@@ -178,6 +179,7 @@ const AdminObjects = () => {
       <table className={"table"}>
         <thead>
           <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Type</th>
             <th>Description</th>
