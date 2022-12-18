@@ -2,19 +2,29 @@
   position: relative;
 }
 
-.tab {
-  cursor: pointer;
-  border: none;
-  outline: none;
-  padding: 5px 10px;
-  font-size: 21px;
-  background: lightgray;
-  transition: all 0.5s ease-in-out;
-}
+.tabs {
+  border: 1px solid black;
+  border-bottom: none;
+  width: fit-content;
 
-.tab--active {
-  padding: 5px 30px;
-  background: aquamarine;
+  .tab {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 5px 5px;
+    font-size: 21px;
+    background: lightgray;
+    transition: all 0.5s ease-in-out;
+    color: gray;
+    font-weight: normal;
+  }
+
+  .tab--active {
+    padding: 5px 30px;
+    background: aquamarine;
+    color: black;
+    font-weight: bold;
+  }
 }
 
 .table {
@@ -63,7 +73,7 @@
     width: fit-content;
     margin: auto;
 
-    input {
+    input, select {
       margin: 0.5em 0;
       padding: 0.5em 1em;
       width: 400px;
