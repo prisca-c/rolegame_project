@@ -49,6 +49,8 @@ const AdminObjects = () => {
       createObject(object).then(() => {
         setHandleUpdate(handleUpdate + 1);
       })
+
+      setShowCreateForm(false);
     }
 
     // Display the create form
@@ -72,8 +74,8 @@ const AdminObjects = () => {
           <input type="text" name="property" id="property" />
         </div>
         <div className={"btn-group"}>
-          <button type="submit">Add</button>
-          <button type="button" onClick={() => setShowCreateForm(false)}>Cancel</button>
+          <button type="submit" className={"btn--green"}>Add</button>
+          <button type="button" className={"btn--red"} onClick={() => setShowCreateForm(false)}>Cancel</button>
         </div>
       </form>
     )
@@ -113,7 +115,7 @@ const AdminObjects = () => {
       <form className={"form"} onSubmit={handleModifyForm}>
         <h2>Modify Object</h2>
         <input type="hidden" name="id" value={editedObject.id} />
-        <p>ID: {editedObject.id}</p>
+        <p><strong>ID: {editedObject.id}</strong></p>
         <div className={"form-group"}>
           <label htmlFor="name">Name</label>
           <input type="text" name="name" placeholder="Name" value={editedObject.name} onChange={handleEditObject}/>
@@ -131,8 +133,8 @@ const AdminObjects = () => {
           <input type="text" name="property" placeholder="Property" value={editedObject.property} onChange={handleEditObject}/>
         </div>
         <div className={"btn-group"}>
-          <button type="submit">Modify</button>
-          <button type="button" onClick={() => setShowModifyForm(false)}>Cancel</button>
+          <button type="submit" className={"btn--green"}>Modify</button>
+          <button type="button" className={"btn--red"} onClick={() => setShowModifyForm(false)}>Cancel</button>
         </div>
       </form>
     )
