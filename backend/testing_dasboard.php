@@ -20,7 +20,7 @@ echo "Specific Character: " . json_encode($character->displaySpecificCharacter(1
 echo "All Inventory: " . json_encode($inventory->displayAllInventories()) . "<br><br>";
 echo "Specific Inventory: " . json_encode($inventory->displaySpecificInventory(1)) . "<br><br>";
 echo "Specific Inventory Object: " . json_encode($inventory->displaySpecificInventoryObject(1, 1)) . "<br><br>";
-echo "All Class: " . json_encode($characterClass->displayAllClass()) . "<br><br>";
+echo "All Classes: " . json_encode($characterClass->displayAllClass()) . "<br><br>";
 
 
 if(empty($_POST['name']) || empty($_POST['type']) || empty($_POST['description']) || empty($_POST['property']))

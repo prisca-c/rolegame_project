@@ -20,9 +20,11 @@ class Inventory
 
     public function displayAllInventories(): array|false
     {
-        $sql = "SELECT inventory.*, objects.name AS object_name
+        $sql = "SELECT inventory.*, objects.name AS object_name, characters.name AS character_name
                 FROM inventory
-                INNER JOIN objects ON inventory.id_object = objects.id";
+                INNER JOIN objects ON inventory.id_object = objects.id
+                INNER JOIN characters ON inventory.id_character = characters.id
+                ORDER BY inventory.id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -33,7 +35,8 @@ class Inventory
         $sql = "SELECT inventory.*, objects.name AS object_name
                 FROM inventory
                 INNER JOIN objects ON inventory.id_object = objects.id
-                WHERE id_character = ?";
+                WHERE id_character = ?
+                ORDER BY inventory.id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$id_character]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -50,13 +53,13 @@ class Inventory
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function modifyInventoryObjectQuantity($id_character, $id_object, $quantity): void
+    public function modifyInventoryObjectQuantity($id, $id_character, $id_object, $quantity): void
     {
         $sql = "UPDATE inventory
-                SET quantity=?
-                WHERE id_character=? AND id_object=?";
+                SET quantity=? , id_character=?, id_object=?
+                WHERE id=?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$quantity, $id_character, $id_object]);
+        $stmt->execute([$quantity, $id_character, $id_object, $id]);
         $stmt = null;
     }
 
@@ -69,12 +72,12 @@ class Inventory
         $stmt = null;
     }
     
-    public function deleteInventoryObject($id_object, $id_character): void
+    public function deleteInventoryObject($id): void
     {
         $sql = "DELETE FROM inventory
-                WHERE id_object = ? AND id_character=?";
+                WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$id_object, $id_character]);
+        $stmt->execute([$id]);
         $stmt = null;
     }
 }
