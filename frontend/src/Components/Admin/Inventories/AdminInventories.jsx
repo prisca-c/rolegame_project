@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { getAllInventories, addItemToInventory, modifyInventoryItem, deleteInventoryItem, deleteInventory } from "../../../Data/inventories";
+import { getAllInventories, getInventory, addItemToInventory, modifyInventoryItem, deleteInventoryItem, deleteInventory } from "../../../Data/inventories";
 import { getAllCharacters} from "../../../Data/characters";
 import { getAllObjects} from "../../../Data/objects";
 
 const AdminInventories = () => {
 
     const [inventories, setInventories] = useState([]); // Hold all inventories
+    const [ characterInventory, setCharacterInventory ] = useState(0); // Hold the inventory of the selected character
     const [ editedInventory, setEditedInventory ] = useState({}); // Hold the inventory to be edited
     const [ showModifyForm, setShowModifyForm ] = useState(false); // Show the modify form
     const [ showCreateForm, setShowCreateForm ] = useState(false); // Show the create form
+    const [ showFilterForm, setShowFilterForm ] = useState(false); // Show the filter form
     const [ handleUpdate, setHandleUpdate ] = useState(1); // Handle the re-render of the list of inventories
-
     const [characters, setCharacters] = useState([]); // Hold all characters
     const [objects, setObjects] = useState([]); // Hold all objects
 
     // Handle the initial fetch of all inventories, characters and objects
     useEffect(() => {
-      getAllInventories().then((inventories) => {
-        setInventories(inventories);
-        console.log(inventories)
-      })
+      if(characterInventory === 0){
+        getAllInventories().then((inventories) => {
+          setInventories(inventories);
+          console.log(inventories)
+        })
+      } else {
+        getInventory(characterInventory).then((inventory) => {
+          setInventories(inventory);
+          console.log(inventory)
+        })
+      }
 
       getAllCharacters().then((characters) => {
         setCharacters(characters);
@@ -35,7 +43,53 @@ const AdminInventories = () => {
     // Handle Create form display state
     const handleShowCreate = () => {
       setShowModifyForm(false); // Hide the modify form
+      setShowFilterForm(false); // Hide the filter form
       setShowCreateForm(true); // Show the create form
+    }
+
+    // Handle Filter form display state
+    const handleShowFilter = () => {
+      setShowModifyForm(false); // Hide the filter form
+      setShowCreateForm(false); // Hide the create form
+      setShowFilterForm(true); // Show the filter form
+    }
+
+    // Display Filter Modal
+    const filterModal = () => {
+      //Handle filter by character
+      const handleFilter = (e) => {
+        e.preventDefault();
+        setCharacterInventory(e.currentTarget.character.value);
+        setHandleUpdate(handleUpdate + 1);
+      }
+
+      // Handle Reset filter
+      const handleReset = () => {
+        setCharacterInventory(0);
+        setHandleUpdate(handleUpdate + 1);
+      }
+
+        // Display the filter form
+      return (
+        <form className="form-filter" onSubmit={handleFilter}>
+          <button className="close-btn" onClick={()=> setShowFilterForm(false)}>X</button>
+          <h2>Filter Inventory</h2>
+          <div className={"form-group"}>
+            <label htmlFor="character">Character</label>
+            <select name="character" id="character">
+              {characters.map((character) => {
+                return (
+                  <option key={character.id} value={character.id}>{character.name}</option>
+                )
+              })}
+            </select>
+          </div>
+          <div className={"btn-group"}>
+            <button type="submit">Filter</button>
+            <button type="button" onClick={handleReset}>Reset</button>
+          </div>
+        </form>
+      )
     }
 
     const displayInventories = () => {
@@ -211,6 +265,7 @@ const AdminInventories = () => {
 
     return (
       <div>
+        <button className={"btn-filter"} onClick={handleShowFilter}>Filter by Character</button>
         <table className={"table"}>
           <thead>
             <tr>
@@ -228,6 +283,7 @@ const AdminInventories = () => {
         </table>
         {showCreateForm ? addInventoryForm() : <button onClick={handleShowCreate}>Add Inventory</button>}
         {showModifyForm ? modifyInventoryForm() : null}
+        {showFilterForm ? filterModal() : null}
       </div>
     )
 
