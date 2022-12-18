@@ -179,8 +179,7 @@ const AdminCharacters = () => {
 
   // Display Characters Panel
   return (
-    <div className={"relative"}>
-      <h2>Characters</h2>
+    <div>
       <table className={"table"}>
         <thead>
           <tr>

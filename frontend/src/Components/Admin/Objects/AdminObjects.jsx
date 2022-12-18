@@ -174,8 +174,6 @@ const AdminObjects = () => {
   // Display Object Panel
   return (
     <div>
-      <h2>Objects</h2>
-
       <table className={"table"}>
         <thead>
           <tr>

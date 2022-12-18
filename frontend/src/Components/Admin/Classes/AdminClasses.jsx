@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {getAllClasses, createClass, modifyClass, deleteClass} from "../../../Data/classes";
 
-const AdminClass = () => {
+const AdminClasses = () => {
 
     const [classes, setClasses] = useState([]); // Hold all classes
     const [ editedClass, setEditedClass ] = useState({}); // Hold the class to be edited
@@ -179,4 +179,4 @@ const AdminClass = () => {
     )
 }
 
-export default AdminClass;
+export default AdminClasses;
