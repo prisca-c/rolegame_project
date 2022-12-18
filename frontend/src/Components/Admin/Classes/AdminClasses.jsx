@@ -17,7 +17,7 @@ const AdminClass = () => {
       })
     }, [handleUpdate]);
 
-    // Handle Class deletion
+    // Handle Classes deletion
     const handleDelete = (e) => {
       deleteClass(e.currentTarget.value).then(() => {
         setHandleUpdate(handleUpdate + 1);
@@ -156,10 +156,9 @@ const AdminClass = () => {
       )
     }
 
-    // Display Class Panel
+    // Display Classes Panel
     return (
-      <div className={"relative"}>
-        <h2>Admin Class</h2>
+      <div>
         <table className={"table"}>
           <thead>
             <tr>
