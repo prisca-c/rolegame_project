@@ -32,9 +32,10 @@ class Inventory
 
     public function displaySpecificInventory($id_character): array|false
     {
-        $sql = "SELECT inventory.*, objects.name AS object_name
+        $sql = "SELECT inventory.*, objects.name AS object_name, characters.name AS character_name
                 FROM inventory
                 INNER JOIN objects ON inventory.id_object = objects.id
+                INNER JOIN characters ON inventory.id_character = characters.id
                 WHERE id_character = ?
                 ORDER BY inventory.id";
         $stmt = $this->conn->prepare($sql);
