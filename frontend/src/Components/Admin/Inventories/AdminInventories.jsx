@@ -61,12 +61,14 @@ const AdminInventories = () => {
         e.preventDefault();
         setCharacterInventory(e.currentTarget.character.value);
         setHandleUpdate(handleUpdate + 1);
+        setShowFilterForm(false);
       }
 
       // Handle Reset filter
       const handleReset = () => {
         setCharacterInventory(0);
         setHandleUpdate(handleUpdate + 1);
+        setShowFilterForm(false);
       }
 
         // Display the filter form
