@@ -20,23 +20,19 @@ const AdminInventories = () => {
       if(characterInventory === 0){
         getAllInventories().then((inventories) => {
           setInventories(inventories);
-          console.log(inventories)
         })
       } else {
         getInventory(characterInventory).then((inventory) => {
           setInventories(inventory);
-          console.log(inventory)
         })
       }
 
       getAllCharacters().then((characters) => {
         setCharacters(characters);
-        console.log(characters)
       })
 
       getAllObjects().then((objects) => {
         setObjects(objects);
-        console.log(objects)
       })
     },[handleUpdate]);
 

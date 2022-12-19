@@ -13,7 +13,6 @@ const AdminCharacters = () => {
   useEffect(() => {
     getAllCharacters().then((characters) => {
       setCharacters(characters);
-      console.log(characters)
     })
   }, [handleUpdate]);
 

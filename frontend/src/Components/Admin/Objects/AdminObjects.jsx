@@ -13,7 +13,6 @@ const AdminObjects = () => {
   useEffect(() => {
     getAllObjects().then((objects) => {
       setObjects(objects);
-      console.log(objects)
     })
   },[handleUpdate]);
 

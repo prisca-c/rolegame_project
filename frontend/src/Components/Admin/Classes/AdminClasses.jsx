@@ -13,7 +13,6 @@ const AdminClasses = () => {
     useEffect(() => {
       getAllClasses().then((classes) => {
         setClasses(classes);
-        console.log(classes)
       })
     }, [handleUpdate]);
 
