@@ -3,7 +3,7 @@ import AdminCharacters from "./Characters/AdminCharacters";
 import AdminObjects from "./Objects/AdminObjects";
 import AdminClasses from "./Classes/AdminClasses";
 import AdminInventories from "./Inventories/AdminInventories";
-import "../../styles/AdminPanel.scss";
+import "../../Styles/AdminPanel.scss";
 
 const AdminPanel = () => {
   const [showTab, setShowTab] = useState("Characters");
@@ -48,7 +48,7 @@ const AdminPanel = () => {
           return (
             <button
               className={handleClass(tab)}
-              key={tab}
+              key={i}
               onClick={handleTabChange}
               value={tab}
             >
