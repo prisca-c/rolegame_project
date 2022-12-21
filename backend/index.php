@@ -7,6 +7,8 @@ require_once 'Models/Objects.php';
 require_once 'Models/Characters.php';
 require_once 'Models/Inventory.php';
 require_once 'Models/ClassCharacter.php';
+require_once 'Models/Events.php';
+require_once 'Models/GameLogic.php';
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -24,6 +26,7 @@ require_once __DIR__ . '/Routes/objects.php';
 require_once __DIR__ . '/Routes/characters.php';
 require_once __DIR__ . '/Routes/inventory.php';
 require_once __DIR__ . '/Routes/classCharacter.php';
-
+require_once __DIR__ . '/Routes/events.php';
+require_once __DIR__ . '/Routes/game_logic.php';
 
 $app->run();

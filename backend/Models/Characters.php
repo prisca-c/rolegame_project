@@ -39,6 +39,18 @@ class Characters
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function displayCharacterByClass($class): array|false
+    {
+        $class_param = $class . '%'; // To get all classes that start with $class
+        $sql = "SELECT characters.*, class_character.name AS class_name
+                FROM characters
+                INNER JOIN class_character ON characters.class = class_character.id
+                WHERE class_character.name LIKE ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$class_param]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function modifyCharacter($id, $name, $class, $hp, $ability, $strength):void
     {
         $sql = "UPDATE characters
