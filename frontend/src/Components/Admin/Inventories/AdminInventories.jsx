@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllInventories, getInventory, addItemToInventory, modifyInventoryItem, deleteInventoryItem, deleteInventory } from "../../../Data/inventories";
-import { getAllCharacters} from "../../../Data/characters";
-import { getAllObjects} from "../../../Data/objects";
+import { getAllCharacters } from "../../../Data/characters";
+import { getAllObjects } from "../../../Data/objects";
 
 const AdminInventories = () => {
 

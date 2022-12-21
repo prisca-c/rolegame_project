@@ -3,6 +3,7 @@ import AdminCharacters from "./Characters/AdminCharacters";
 import AdminObjects from "./Objects/AdminObjects";
 import AdminClasses from "./Classes/AdminClasses";
 import AdminInventories from "./Inventories/AdminInventories";
+import AdminEvents from "./Events/AdminEvents";
 import "../../Styles/AdminPanel.scss";
 
 const AdminPanel = () => {
@@ -19,6 +20,8 @@ const AdminPanel = () => {
         return <AdminClasses />;
       case "Inventories":
         return <AdminInventories />;
+      case "Events":
+        return <AdminEvents />;
       default:
         return <AdminCharacters />;
     }
@@ -26,7 +29,7 @@ const AdminPanel = () => {
 
   //Handle tab list buttons
   const tabList = () => {
-    const tabs = ["Characters", "Objects", "Class", "Inventories"];
+    const tabs = ["Characters", "Objects", "Class", "Inventories", "Events"];
 
     const handleTabChange = (e) => {
       setShowTab(e.currentTarget.value);

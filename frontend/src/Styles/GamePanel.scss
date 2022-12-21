@@ -1,0 +1,17 @@
+.form-choose-character {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin: auto;
+  gap: 5px;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+h1 {
+  text-align: center;
+}

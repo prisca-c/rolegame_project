@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {getAllCharacters, deleteCharacter, createCharacter, modifyCharacter} from "../../../Data/characters";
+import {getAllClasses} from "../../../Data/classes";
 
 const AdminCharacters = () => {
 
   const [characters, setCharacters] = useState([]); // Hold all characters
-  const [ editedCharacter, setEditedCharacter ] = useState({}); // Hold the character to be edited
+  const [editedCharacter, setEditedCharacter] = useState({}); // Hold the character to be edited
+  const [classes, setClasses] = useState([]) // Hold all classes
+  const [classStats, setClassStats] = useState([classes[0]]) // Hold stats oh current class
   const [ handleUpdate, setHandleUpdate ] = useState(1); // Handle the re-render of the list of characters
   const [ showModifyForm, setShowModifyForm ] = useState(false); // Show the modify form
   const [ showCreateForm, setShowCreateForm ] = useState(false); // Show the create form
@@ -13,6 +16,9 @@ const AdminCharacters = () => {
   useEffect(() => {
     getAllCharacters().then((characters) => {
       setCharacters(characters);
+    })
+    getAllClasses().then((classes) => {
+      setClasses(classes)
     })
   }, [handleUpdate]);
 
@@ -33,8 +39,8 @@ const AdminCharacters = () => {
     const handleShowModify = (e) => {
       // Get the character to be edited
       const character = characters.find((character) => {
-        return character.id === parseInt(e.currentTarget.value);
-      });
+        return character.id === e.currentTarget.value;
+      })
       setEditedCharacter(character); // Set the character to be edited
       setShowCreateForm(false); // Hide the create form
       setShowModifyForm(true); // Show the modify form
@@ -75,10 +81,7 @@ const AdminCharacters = () => {
 
       const character = {
         'name': e.currentTarget.name.value,
-        'class': parseInt(e.currentTarget.class.value),
-        'hp': parseInt(e.currentTarget.hp.value),
-        'ability': parseInt(e.currentTarget.ability.value),
-        'strength': parseInt(e.currentTarget.strength.value)
+        'class': parseInt(e.currentTarget.class.value)
       }
 
       // Send the modified character to the backend
@@ -100,11 +103,17 @@ const AdminCharacters = () => {
         </div>
         <div className={'form-group'}>
           <label htmlFor="class">Class</label>
-          <input type="number" name="class" id="class" value={editedCharacter.class} onChange={handleEditCharacter} />
+          <select name="class" id="class" value={editedCharacter.class} onChange={handleEditCharacter}>
+            {classes.map((classItem) => {
+              return (
+                <option key={classItem.id} value={classItem.id}>{classItem.name}</option>
+              )
+            })}
+          </select>
         </div>
         <div className={'form-group'}>
           <label htmlFor="hp">Hp</label>
-          <input type="number" name="hp" id="hp" value={editedCharacter.hp} onChange={handleEditCharacter} />
+          <input type="number" name="hp" id="hp" value={editedCharacter.hp} onChange={handleEditCharacter}/>
         </div>
         <div className={'form-group'}>
           <label htmlFor="ability">Ability</label>
@@ -131,10 +140,7 @@ const AdminCharacters = () => {
 
       const character = {
         'name': e.currentTarget.name.value,
-        'class': parseInt(e.currentTarget.class.value),
-        'hp': parseInt(e.currentTarget.hp.value),
-        'ability': parseInt(e.currentTarget.ability.value),
-        'strength': parseInt(e.currentTarget.strength.value)
+        'class': parseInt(e.currentTarget.class.value)
       }
 
       console.log(character);
@@ -142,6 +148,14 @@ const AdminCharacters = () => {
       createCharacter(character).then(() => {
         setHandleUpdate(handleUpdate + 1);
       })
+    }
+
+    const handleClassStats = (e) => {
+      const classId = e.currentTarget.value;
+      const classItem = classes.find((classItem) => {
+        return classItem.id === classId;
+      })
+      setClassStats(classItem);
     }
 
     // Display the Create form
@@ -154,20 +168,17 @@ const AdminCharacters = () => {
         </div>
         <div className={'form-group'}>
           <label>Class</label>
-          <input type="number" name="class" placeholder="Class"/>
+          <select name="class" onChange={handleClassStats}>
+            {classes.map((classItem) => {
+              return (
+                <option key={classItem.id} value={classItem.id}>{classItem.name}</option>
+              )
+            })}
+          </select>
         </div>
-        <div className={'form-group'}>
-          <label>Hp</label>
-          <input type="number" name="hp" placeholder="Hp"/>
-        </div>
-        <div className={'form-group'}>
-          <label>Ability</label>
-          <input type="number" name="ability" placeholder="Ability"/>
-        </div>
-        <div className={'form-group'}>
-          <label>Strength</label>
-          <input type="number" name="strength" placeholder="Strength"/>
-        </div>
+        <p>{classStats.hp}</p>
+        <p>{classStats.ability}</p>
+        <p>{classStats.strength}</p>
         <div className={'btn-group'}>
           <button type="submit" className={"btn--green"}>Add</button>
           <button onClick={() => setShowCreateForm(false)} className={"btn--red"}>Cancel</button>

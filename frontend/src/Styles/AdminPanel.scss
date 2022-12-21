@@ -104,7 +104,7 @@ button {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 550px;
+  height: fit-content;
   width: 90%;
   padding: 15px 25px;
   display: flex;
@@ -128,9 +128,10 @@ button {
     display: flex;
     flex-direction: column;
     width: fit-content;
-    margin: auto;
+    height: fit-content;
+    margin: 0 auto;
 
-    input, select {
+    input, select, textarea {
       margin: 0.5em 0;
       padding: 0.5em 1em;
       width: 400px;
