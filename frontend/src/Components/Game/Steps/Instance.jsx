@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import axios from "axios";
 
 const Instance = (props) => {
@@ -108,7 +108,6 @@ const Instance = (props) => {
   const handleFindPhase = () => {
     let max = cardPicked[0].event.description.text.length - 1
     let int = getRandomInt(0, max)
-    let display = false
 
     let object = cardPicked[0].object
     const handleDisplay = () => {
@@ -119,22 +118,21 @@ const Instance = (props) => {
     }
 
     const handleAdd = () => {
-      inventory.map((item) => {
-        if(item.id === object.id){
-          console.log(item)
-          setInventory(inventory.map((item) => {
-            if(item.id === object.id){
-              item.quantity += 1
-            }
-            return item
-          }))
-        } else if(item.id !== object.id) {
-          setInventory([...inventory, Object.assign(object, {quantity: 1})])
-        }
-      })
+
+      const existingItem = inventory.find(item => item.id === object.id)
+      if(existingItem){
+        setInventory(inventory.map((item) => {
+          if(item.id === object.id){
+            item.quantity += 1
+          }
+          return item
+        }))
+      } else {
+        setInventory([...inventory, Object.assign(object, {quantity: 1})])
+      }
+
       setCardPicked([])
       setEvents([])
-
       setPhase(1)
     }
 
