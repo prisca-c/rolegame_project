@@ -1,3 +1,5 @@
+@import url(https://fonts.bunny.net/css?family=vt323:400);
+
 .form-choose-character {
   display: flex;
   flex-direction: column;
@@ -12,6 +14,274 @@
   }
 }
 
-h1 {
+h1, h2 {
   text-align: center;
+}
+
+.instance {
+  outline: 2.5px solid black;
+  margin: auto;
+  height: 50rem;
+  width: 90vw;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../Assets/dungeon_background.jpg) center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'vt323', monospace;
+
+  h1, h2, h3, p {
+    margin: 0;
+  }
+
+  &__inventory-btn {
+    font-family: 'vt323', monospace;
+    font-size: 1.5rem;
+  }
+
+  &__main {
+    position: relative;
+    height: 80%;
+    border-bottom: 2.5px solid black;
+
+    .title {
+      position: absolute;
+      top: 80px;
+      left: 0;
+      right: 0;
+      background: #733737 url("../Assets/paper_texture.jpg");
+      width: fit-content;
+      margin: auto;
+      padding: 10px 25px;
+      border: 2px solid #733737;
+      transform: rotate(-5deg);
+      font-size: 36px;
+      color: #733737;
+    }
+
+    &__inventory {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.29);
+      z-index: 10;
+
+      h2 {
+        color: white;
+        margin: 10px;
+      }
+
+      &__items {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        gap: 5px;
+
+        &__item {
+          cursor: pointer;
+          background: url("../Assets/paper_texture.jpg");
+          padding: 5px 10px;
+          width: 150px;
+          text-align: center;
+        }
+      }
+    }
+
+    &__cards {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 160px;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+
+      &__card {
+        cursor: pointer;
+        height: 210px;
+        width: 120px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border-radius: 10px;
+        border: 2.5px solid #733737;
+        font-size: 21px;
+        padding: 0 10px;
+        background: linear-gradient(rgba(178, 84, 84, 0.59), rgb(178, 84, 84)) ,url("../Assets/paper_texture-2.jpg") center;
+        transition: all 0.3s ease-in-out;
+      }
+
+      &__card:hover {
+        transform: scale(1.06);
+      }
+    }
+
+    &__fight {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 200px;
+      display: flex;
+      justify-content: center;
+
+      &__button {
+        &--start {
+          cursor: pointer;
+          background: #b25454;
+          font-size: 26px;
+          padding: 10px 20px;
+          border: #733737 2.5px solid;
+          transition: all 0.3s ease-in-out;
+
+          &:hover {
+            transform: scale(1.06);
+          }
+        }
+      }
+    }
+
+    &__find {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      text-align: center;
+
+      &__infos {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        width: 380px;
+        min-height: 150px;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 31px;
+        background: url("../Assets/paper_texture.jpg") center;
+        border: 2.5px solid #733737;
+      }
+
+      &__button {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        &--display, &--add, &--drop {
+          cursor: pointer;
+          background: #b25454;
+          font-size: 26px;
+          padding: 10px 20px;
+          border: #733737 2.5px solid;
+          transition: all 0.3s ease-in-out;
+        }
+
+        &--display:hover, &--add:hover, &--drop:hover {
+          transform: scale(1.06);
+        }
+      }
+
+      &__object {
+        position: absolute;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        width: 380px;
+        min-height: 150px;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 31px;
+        background: url("../Assets/paper_texture.jpg") center;
+        border: 2.5px solid #733737;
+      }
+    }
+  }
+
+  &__footer {
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    height: 25%;
+    font-size: 21px;
+
+    &__player, &__enemy, &__actions {
+      width: 100%;
+      height: 100%;
+      outline: 2.5px solid black;
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      align-items: center;
+      font-family: 'vt323', monospace;
+      background: #b25454;
+    }
+
+    &__actions {
+      text-align: center;
+
+      &__draw {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        background: #5480b2;
+
+        h3 {
+          width: 100%;
+          background: #374a73;
+          padding: 5px 0;
+          border-bottom: 2.5px solid black;
+        }
+
+        &__box {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          &--onclick {
+            cursor: pointer;
+            background: rgba(55, 74, 115, 0.22);
+            border: 1px solid black;
+            width: fit-content;
+            padding: 35px;
+            margin: auto;
+            transition: all 0.3s ease-in-out;
+            p {
+              height: 80%;
+            }
+          }
+          &--onclick:hover {
+            background: rgba(55, 74, 115, 0.5);
+          }
+        }
+      }
+    }
+
+    &__player, &__enemy {
+
+      h3 {
+        text-align: center;
+        width: 100%;
+        background: #733737;
+        padding: 5px 0;
+        border-bottom: 2.5px solid black;
+      }
+
+      &__stats {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        gap: 5px;
+      }
+    }
+  }
+
+
 }

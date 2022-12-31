@@ -1,17 +1,13 @@
 import React , { useState, useEffect } from 'react';
 import "../../Styles/GamePanel.scss";
-import ChooseCharacter from "./ChooseCharacter";
-import Start from "./Start";
-import Instance from "./Instance";
+import ChooseCharacter from "./Steps/ChooseCharacter";
+import Start from "./Steps/Start";
+import Instance from "./Steps/Instance";
 import axios from "axios";
 
 const GamePanel = () => {
   const [handleStep, setHandleStep] = useState(0)
   const [selectedCharacter, setSelectedCharacter] = useState({})
-  useEffect(() => {
-    let event = axios.get(`${process.env.REACT_APP_API_URL}/random_event/`)
-    console.log(event)
-  },[])
 
   const stepDisplay = () => {
    // switch statement
@@ -31,7 +27,8 @@ const GamePanel = () => {
         )
       case 2:
         return (
-          <Instance />
+          <Instance
+            character={selectedCharacter}/>
         )
       default:
         return (

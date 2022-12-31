@@ -67,10 +67,24 @@ class GameLogic
                     'object' => $object
                 ];
             } else {
-                $complete_event = $event;
+                $complete_event = [
+                    'event' => $event,
+                ];
             }
         }
         return $complete_event;
+    }
+
+    public function getMultipleCompleteEvents(): array
+    {
+        $complete_events = [];
+        for ($i = 0; $i < 3; $i++) {
+            $complete_event = $this->getCompleteEvent();
+            if ($complete_event) {
+                $complete_events[] = $complete_event;
+            }
+        }
+        return $complete_events;
     }
 
     public function handleEventFind($id_character, $id_object, $quantity): void

@@ -26,7 +26,7 @@ $app->get('/random_enemies/', function (Request $request, Response $response, $a
     return $response;
 });
 
-// Handle random event
+// Handle random event (disabled because this logic is handled in frontend, but maybe one day ...)
 /*$app->get('/random_event/{id_character}', function (Request $request, Response $response, $args) {
     $gameLogic = new GameLogic();
     $event = $gameLogic->getCompleteEvent();
@@ -42,7 +42,7 @@ $app->get('/random_enemies/', function (Request $request, Response $response, $a
 
 $app->get('/random_event/', function (Request $request, Response $response, $args) {
     $gameLogic = new GameLogic();
-    $event = $gameLogic->getCompleteEvent();
+    $event = $gameLogic->getMultipleCompleteEvents();
     $response->getBody()->write(json_encode($event));
     return $response;
 });
