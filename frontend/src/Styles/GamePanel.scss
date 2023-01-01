@@ -125,14 +125,31 @@ h1, h2 {
       display: flex;
       justify-content: center;
 
-      &__button {
-        &--start {
+      &__button, &__actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+
+        &--infos, &--enemy {
+          background: linear-gradient(rgba(178, 84, 84, 0.59), rgb(178, 84, 84)) ,url("../Assets/paper_texture-2.jpg") center;
+          border: 2.5px solid #733737;
+          border-radius: 10px;
+          padding: 10px 20px;
+          font-size: 31px;
+          transition: all 0.3s ease-in-out;
+        }
+
+        &--start, &--attack, &--run, &--dice {
           cursor: pointer;
           background: #b25454;
           font-size: 26px;
           padding: 10px 20px;
           border: #733737 2.5px solid;
           transition: all 0.3s ease-in-out;
+          text-align: center;
+          width: 100px;
 
           &:hover {
             transform: scale(1.06);

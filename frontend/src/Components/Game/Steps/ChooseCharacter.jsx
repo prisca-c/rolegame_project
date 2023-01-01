@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {getAllCharacters} from "../../../Data/characters";
+import {getAllCharacters, getCharacterByClass} from "../../../Data/characters";
 
 const ChooseCharacter = (props) => {
   const [ characters, setCharacters ] = useState([])
 
   useEffect(() => {
-    getAllCharacters().then((characters) => {
+    getCharacterByClass('character').then((characters) => {
       setCharacters(characters);
     })
   }, [props.selectedCharacter]);

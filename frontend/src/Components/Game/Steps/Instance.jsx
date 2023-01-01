@@ -21,18 +21,29 @@ const Instance = (props) => {
     },
   ])
   const [inventoryState, setInventoryState] = useState(false)
+  const [fightPhase, setFightPhase] = useState(0)
 
   /* Phase :
   * - Draw
   * - Fight (simple - Boss)
   * - Find
-  * - Miscellaneous (tavern...)
   *
   */
 
   // Get random int between min and max
   const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  const resetPhase = () => {
+    setPhase(1)
+    setCardState(false)
+    setCardPicked([])
+    setInventoryState(false)
+    setFightPhase(0)
+    setEnemy({})
+    setEnemyState(false)
+    setEvents([])
   }
 
   // Handle fetch and set of events
@@ -78,10 +89,6 @@ const Instance = (props) => {
           setCardPicked([events[2]])
         }
 
-        /*setTimeout(() => {
-          setCardState(false)
-          setPhase(2)
-        } , 1000)*/
         setCardState(false)
         setPhase(2)
       }
@@ -131,9 +138,7 @@ const Instance = (props) => {
         setInventory([...inventory, Object.assign(object, {quantity: 1})])
       }
 
-      setCardPicked([])
-      setEvents([])
-      setPhase(1)
+      resetPhase()
     }
 
     const handleDrop = () => {
@@ -168,9 +173,130 @@ const Instance = (props) => {
   }
 
   const handleFightPhase = () => {
+    const dicePhase = () => {
+      let characterDice = 0
+      let enemyDice = 0
+
+      const rollDice = () => {
+        characterDice = getRandomInt(1, 6)
+        enemyDice = getRandomInt(1, 6)
+      }
+
+      const roll = () => {
+        let rollDisplay = document.querySelector(".instance__main__fight__actions--infos")
+        let buttonRole = document.querySelector(".instance__main__fight__actions--dice")
+        rollDisplay.style.display = "block"
+        buttonRole.style.display = "none"
+        rollDice()
+
+        if(characterDice > enemyDice){
+          rollDisplay.innerHTML = "You rolled " + characterDice + " and the enemy rolled " + enemyDice + ".<br/> You win !"
+          setTimeout(() => {
+            setFightPhase(2)
+          } , 5000)
+        } else if (characterDice < enemyDice) {
+          rollDisplay.innerHTML = "You rolled " + characterDice + " and the enemy rolled " + enemyDice + ".<br/> You lose !"
+          setTimeout(() => {
+            setCharacter(prevCharacter => {
+              return {
+                ...prevCharacter,
+                hp: prevCharacter.hp - enemy[0].strength
+              }
+            })
+            setFightPhase(3)
+          }, 5000)
+        } else {
+          rollDisplay.innerHTML = "You rolled " + characterDice + " and the enemy rolled " + enemyDice + ".<br/> It's a draw !"
+          setTimeout(() => {
+            let characterDice = getRandomInt(1, 6)
+            let enemyDice = getRandomInt(1, 6)
+            setFightPhase(1)
+            buttonRole.style.display = "block"
+            rollDisplay.style.display = "none"
+          }, 3000)
+        }
+      }
+
+      return (
+        <>
+          <div className={"instance__main__fight__actions"}>
+            <div className={"instance__main__fight__actions--infos"} style={{display:"none"}}>
+            </div>
+            <p className={"instance__main__fight__actions--dice"} onClick={roll}>
+              Roll the dice
+            </p>
+          </div>
+        </>
+      )
+    }
+    const characterFightPhase = () => {
+      const handleAttack = () => {
+        setEnemy(prevEnemies => {
+          return prevEnemies.map(enemy => {
+            if (enemy.id) {
+              return {
+                ...enemy,
+                hp: enemy.hp - character.strength
+              };
+            }
+            return enemy;
+          });
+        });
+        document.querySelector(".instance__main__fight__actions--attack").style.display = "none"
+        document.querySelector(".instance__main__fight__actions--infos").style.display = "block"
+      }
+
+      if (enemy[0].hp <= 0){
+        setCharacter(prevCharacter => {
+          return {
+            ...prevCharacter,
+            hp: prevCharacter.hp + (prevCharacter.hp * 0.1)
+          }
+        })
+        resetPhase()
+      } else {
+        setTimeout(() => {
+          setFightPhase(1)
+        }, 5000)
+      }
+
+      return(
+        <div className={"instance__main__fight__actions"}>
+          <h3 className={"instance__main__fight__actions--infos"} style={{display:"none"}}>
+            You dealed {character.strength} damages to {enemy[0].name}
+          </h3>
+          <p className={"instance__main__fight__actions--attack"} onClick={handleAttack}>Attack</p>
+        </div>
+      )
+    }
+
+    const enemyFightPhase = () => {
+
+      if (character.hp <= 0){
+        setTimeout(() => {
+          resetPhase()
+        }, 5000)
+      } else {
+        setTimeout(() => {
+          setFightPhase(1)
+        }, 5000)
+      }
+
+      return(
+        <div className={"instance__main__fight__actions"}>
+          <h3 className={"instance__main__fight__actions--enemy"}>
+            {enemy[0].name} Attacks and Deals
+            <span style={{color:"crimson", textShadow:"0px 0px 3px black"}}> {enemy[0].strength} </span>
+            Damages!
+          </h3>
+        </div>
+      )
+    }
+
     const handleSetEnemy = () => {
       setEnemy(cardPicked[0].enemy)
       setEnemyState(true)
+      setFightPhase(1)
       document.querySelector(".instance__main__fight__button--start").style.display = "none"
     }
 
@@ -181,6 +307,10 @@ const Instance = (props) => {
           <div className={"instance__main__fight__button"}>
             <p className={"instance__main__fight__button--start"} onClick={handleSetEnemy}>Start Fight</p>
           </div>
+          {fightPhase === 1 ? dicePhase() : null}
+          {fightPhase === 2 ? characterFightPhase() : null}
+          {fightPhase === 3 ? enemyFightPhase() : null}
+
         </div>
       </>
     )

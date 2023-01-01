@@ -4,6 +4,11 @@ const getAllCharacters = async () => {
   return response.data;
 }
 
+const getCharacterByClass = async (classId) => {
+  const response = await axios.get(`${process.env.REACT_APP_API_URL}/characters/class/${classId}`);
+  return response.data;
+}
+
 const getCharacter = async (id) => {
   const response = await axios.get(`${process.env.REACT_APP_API_URL}/characters/${id}`);
   console.log(response.data);
@@ -26,4 +31,4 @@ const deleteCharacter = async (id) => {
   return response.data;
 }
 
-export { getAllCharacters, getCharacter, createCharacter, modifyCharacter, deleteCharacter };
+export { getAllCharacters, getCharacter, createCharacter, modifyCharacter, deleteCharacter, getCharacterByClass };
