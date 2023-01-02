@@ -8,7 +8,6 @@ const Start = (props) => {
       <h2>Let's start your adventure</h2>
       <div className={"start-btn"}>
         <button onClick={()=>{props.handleStep(2)}}>Start a Game</button>
-        <button>Delete Character</button>
       </div>
     </div>
   )

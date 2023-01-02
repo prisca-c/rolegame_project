@@ -117,15 +117,16 @@ h1, h2 {
       }
     }
 
-    &__fight {
+    &__fight, &__loose {
       position: absolute;
       left: 0;
       right: 0;
       bottom: 200px;
       display: flex;
       justify-content: center;
+      flex-direction: column;
 
-      &__button, &__actions {
+      &__button, &__actions, & {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -141,7 +142,7 @@ h1, h2 {
           transition: all 0.3s ease-in-out;
         }
 
-        &--start, &--attack, &--run, &--dice {
+        &--start, &--attack, &--run, &--dice, &--back {
           cursor: pointer;
           background: #b25454;
           font-size: 26px;

@@ -208,8 +208,6 @@ const Instance = (props) => {
         } else {
           rollDisplay.innerHTML = "You rolled " + characterDice + " and the enemy rolled " + enemyDice + ".<br/> It's a draw !"
           setTimeout(() => {
-            let characterDice = getRandomInt(1, 6)
-            let enemyDice = getRandomInt(1, 6)
             setFightPhase(1)
             buttonRole.style.display = "block"
             rollDisplay.style.display = "none"
@@ -250,7 +248,7 @@ const Instance = (props) => {
         setCharacter(prevCharacter => {
           return {
             ...prevCharacter,
-            hp: prevCharacter.hp + (prevCharacter.hp * 0.1)
+            hp: prevCharacter.hp + 10
           }
         })
         resetPhase()
@@ -274,7 +272,8 @@ const Instance = (props) => {
 
       if (character.hp <= 0){
         setTimeout(() => {
-          resetPhase()
+          //resetPhase()
+          setPhase(3)
         }, 5000)
       } else {
         setTimeout(() => {
@@ -313,6 +312,21 @@ const Instance = (props) => {
 
         </div>
       </>
+    )
+  }
+
+  const handleLoose = () => {
+    return (
+    <>
+      <h2 className={"title"}>You Loose</h2>
+      <div className={"instance__main__loose"}>
+        <div className={"instance__main__loose__actions"}>
+          <p className={"instance__main__loose__actions--back"} onClick={()=> {props.handleStep(0)}} style={{display:"block"}}>
+            Go back to character select.
+          </p>
+        </div>
+      </div>
+    </>
     )
   }
 
@@ -399,6 +413,8 @@ const Instance = (props) => {
           return handleFightPhase()
         }
         break
+      case 3:
+        return handleLoose()
       default:
         return handleCardsDisplay()
     }

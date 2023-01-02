@@ -1,9 +1,8 @@
-import React , { useState, useEffect } from 'react';
+import React , { useState } from 'react';
 import "../../Styles/GamePanel.scss";
 import ChooseCharacter from "./Steps/ChooseCharacter";
 import Start from "./Steps/Start";
 import Instance from "./Steps/Instance";
-import axios from "axios";
 
 const GamePanel = () => {
   const [handleStep, setHandleStep] = useState(0)
@@ -28,7 +27,8 @@ const GamePanel = () => {
       case 2:
         return (
           <Instance
-            character={selectedCharacter}/>
+            character={selectedCharacter}
+            handleStep={setHandleStep}/>
         )
       default:
         return (
