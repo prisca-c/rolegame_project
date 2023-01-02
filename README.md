@@ -33,7 +33,7 @@ Depends on your environment, if you have a web server, you can just put the `bac
 
 If you don't have a web server, you can run the following command:
 
-    - php -S localhost:8080 -t public public/index.php
+    - php -S localhost:8080 -t public /index.php
 
 ### Frontend
 
