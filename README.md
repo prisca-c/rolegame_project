@@ -46,5 +46,5 @@ To run the frontend, you need to go to the `frontend` folder and run one of the 
 ## Which database is used?
 
 The database used is a MySQL database. You can find the database as a SQL file in the `backend` folder.
-It's very important to keep the same name for the database, the tables and the columns. If you want to change the name of the database.
+It's very important to keep the same name for the database, the tables and the columns.
 It's also very important to keep the same structure in columns. (exemple: `events` have a column `description` which have a specific structure)
