@@ -145,7 +145,7 @@ const AdminObjects = () => {
     // Handle the display of the modify form & pick the object to be modified
     const handleShowModify = (e) => {
       const object = objects.find((object) => {
-        return object.id === parseInt(e.currentTarget.value);
+        return object.id === e.currentTarget.value;
       });
       setEditedObject(object);
       setShowCreateForm(false);

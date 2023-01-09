@@ -95,7 +95,7 @@ const AdminInventories = () => {
       const handleShowModify = (e) => {
         // Get the inventory to be edited
         const inventory = inventories.find((inventory) => {
-          return inventory.id === parseInt(e.currentTarget.value);
+          return inventory.id === e.currentTarget.value;
         });
         setEditedInventory(inventory); // Set the inventory to be edited
         setShowCreateForm(false); // Hide the create form

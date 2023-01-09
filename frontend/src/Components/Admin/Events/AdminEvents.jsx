@@ -103,7 +103,7 @@ const AdminEvents = () => {
     const handleShowModify = (e) => {
       // Get the event to be edited
       const eventEdited = events.find((event) => {
-        return event.id === parseInt(e.currentTarget.value);
+        return event.id === e.currentTarget.value;
       });
       setEditedEvents(eventEdited); // Set the event to be edited
       setShowCreateForm(false); // Hide the create form

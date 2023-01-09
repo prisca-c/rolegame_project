@@ -35,7 +35,7 @@ const AdminClasses = () => {
       const handleShowModify = (e) => {
         // Get the class to be edited
         const class_edited = classes.find((class_item) => {
-          return class_item.id === parseInt(e.currentTarget.value);
+          return class_item.id === e.currentTarget.value;
         });
         setEditedClass(class_edited); // Set the class to be edited
         setShowCreateForm(false); // Hide the create form

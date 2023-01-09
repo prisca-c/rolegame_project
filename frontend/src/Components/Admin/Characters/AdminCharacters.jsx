@@ -39,7 +39,7 @@ const AdminCharacters = () => {
     const handleShowModify = (e) => {
       // Get the character to be edited
       const character = characters.find((character) => {
-        return character.id === parseInt(e.currentTarget.value);
+        return character.id === e.currentTarget.value;
       })
       setEditedCharacter(character); // Set the character to be edited
       setShowCreateForm(false); // Hide the create form
@@ -81,7 +81,7 @@ const AdminCharacters = () => {
 
       const character = {
         'name': e.currentTarget.name.value,
-        'class': parseInt(e.currentTarget.class.value)
+        'class': e.currentTarget.class.value
       }
 
       // Send the modified character to the backend

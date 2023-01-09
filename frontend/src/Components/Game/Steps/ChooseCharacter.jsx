@@ -14,7 +14,7 @@ const ChooseCharacter = (props) => {
     const handlePickedCharacter = (e) => {
       e.preventDefault();
       const character = characters.find((character) => {
-        return character.id === parseInt(e.currentTarget.character.value);
+        return character.id === e.currentTarget.character.value;
       })
       props.setSelectedCharacter(character);
       props.handleStep(1)
